@@ -1,0 +1,18 @@
+{
+  "name": "wisdm-api",
+  "version": "0.1.0",
+  "description": "an api to access wildlife information databases",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mitchell Gritts <mitchellgritts@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "express": "^4.15.4",
+    "pg-monitor": "^0.8.2",
+    "pg-promise": "^6.5.1",
+    "structure": "^1.2.1"
+  }
+}
