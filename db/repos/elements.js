@@ -1,33 +1,19 @@
 'use strict'
 const sql = require('../sql').elements
-const helpers = require('pg-promise')().helpers
 
-const cs = new helpers.ColumnSet([
-  {
-    name: 'animal_id',
-  }, {
-    name: 'species_id',
-  }, {
-    name: 'sex',
-    def: 'unk'
-  }
-], {table: { table: 'elements' }})
+let cs;
 
 class Elements {
   constructor (db, pgp) {
     this.db = db
     this.pgp = pgp
-    this.cs = cs || pgp.helpers.ColumnSet([
-      '?id',
+    cs = cs || pgp.helpers.ColumnSet([
+      '?id', 'animal_id', 'species_id',
       {
-        name: 'animal_id'
-      }, {
-        name: 'species_id'
-      }, {
         name: 'sex',
         def: 'unk'
       }
-    ], {table: { table: 'elements' }})
+    ], {table: 'elements'})
   }
 
   all () {
@@ -35,7 +21,7 @@ class Elements {
   }
 
   insert (data) {
-    const sqlInsert = this.pgp.helpers.insert(data, this.cs).toString() + ' RETURNING *'
+    const sqlInsert = this.pgp.helpers.insert(data, cs).toString() + ' RETURNING *'
     return this.db.one(sqlInsert)
   }
 }
