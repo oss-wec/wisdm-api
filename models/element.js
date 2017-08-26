@@ -1,7 +1,7 @@
 const { attributes } = require('structure')
-const sql = require('../db/sql')
+const db = require('../db')
 // const format = require('pg-promise').as.format
-const helpers = require('pg-promise')().helpers
+// const helpers = require('pg-promise')().helpers
 
 const Element = attributes({
   id: {
@@ -25,17 +25,8 @@ const Element = attributes({
     default: 'unk'
   }
 })(class Element {
-  constructor (db, pgp) {
-    this.db = db
-    this.pgp = pgp
-  }
-
-  all () {
-    return this.db.many(sql.all)
-  }
-
-  cs () {
-    return new helpers.ColumnSet(this.attributes, { table: 'element' })
+  static all () {
+    return db.elements.all()
   }
 })
 

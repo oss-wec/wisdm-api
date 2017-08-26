@@ -1,13 +1,14 @@
 const Express = require('express')
 const router = Express.Router()
 const db = require('../db')
-// const models = require('../models')
+const models = require('../models')
 
 router.get('/', (req, res) => {
   // console.log(Object.getOwnPropertyNames(db.elements.attr))
-  console.log(db.elements)
+  console.log(models.Element)
 
-  db.elements.all()
+  // db.elements.all()
+  models.Element.all()
     .then(data => res.status(200).json({
       data: data,
       cs: db.elements.cs
