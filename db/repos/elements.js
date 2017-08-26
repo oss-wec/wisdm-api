@@ -8,7 +8,7 @@ class Elements {
   constructor (db, pgp) {
     this.db = db
     this.pgp = pgp
-    this.cs = cs || pgp.helpers.ColumnSet([
+    cs = cs || pgp.helpers.ColumnSet([
       {
         name: 'animal_id'
       }, {
@@ -25,7 +25,7 @@ class Elements {
   }
 
   insert (data) {
-    const sqlInsert = this.pgp.helpers.insert(data, this.cs).toString() + ' RETURNING *'
+    const sqlInsert = this.pgp.helpers.insert(data, cs).toString() + ' RETURNING *'
     return this.db.one(sqlInsert)
   }
 }
