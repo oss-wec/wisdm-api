@@ -23,5 +23,8 @@ const sql = file => {
 module.exports = {
   elements: {
     all: sql('elements/all.sql')
+  },
+  projects: {
+    all: sql('projects/all.sql')
   }
 }
