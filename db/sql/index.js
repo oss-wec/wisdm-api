@@ -26,5 +26,8 @@ module.exports = {
   },
   projects: {
     all: sql('projects/all.sql')
+  },
+  general: {
+    insert: sql('general/insert.sql')
   }
 }

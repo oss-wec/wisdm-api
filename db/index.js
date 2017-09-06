@@ -3,7 +3,8 @@
 const promise = require('bluebird')
 const repos = {
   elements: require('./repos/elements'),
-  projects: require('./repos/projects')
+  projects: require('./repos/projects'),
+  general: require('./repos/general')
 }
 
 const initOptions = {

@@ -1,5 +1,7 @@
 const { attributes } = require('structure')
+const humps = require('humps')
 const db = require('../db')
+const sql = require('../db/sql')
 const helpers = db.projects.pgp.helpers
 const utils = require('../utils')
 
@@ -22,7 +24,7 @@ const ProjectSpecies = attributes({
   }
 
   cs () {
-    return new helpers.ColumnSet(this.base(), {table: 'project_species'})
+    return new helpers.ColumnSet(this.base(), { table: 'project_species' })
   }
 
   sets () {
@@ -46,7 +48,23 @@ const ProjectLocations = attributes({
   hunt_unit: {
     type: String
   }
-})(class ProjectLocations {})
+})(class ProjectLocations {
+  base () {
+    return utils.pick(this, 'project_id', 'hunt_unit')
+  }
+
+  cs () {
+    return new helpers.ColumnSet(this.base(), { table: 'project_locations' })
+  }
+
+  sets () {
+    return helpers.sets(this.base(), this.cs())
+  }
+
+  values () {
+    return helpers.values(this.base(), this.cs())
+  }
+})
 
 const Projects = attributes({
   id: {
@@ -121,17 +139,28 @@ const Projects = attributes({
     return helpers.insert(this.base(), this.cs())
   }
 
-  insertSpecies () {
-    const insertObj = {}
-
-    insertObj.values = this.projectSpecies.map(i => {
-      return i.values()
-    })
-
-    insertObj.columns = Object.keys(this.projectSpecies[0].attributes)
-    
-    return insertObj
+  insertSpecies (projectId) {
+    return {
+      speciesInsert: db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectSpecies')),
+      locInsert: db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectLocations')),
+      userInsert: db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectUsers'))
+    }
   }
 })
+
+const mapInsert = (ctx, ctxKey) => {
+  const insertObj = {}
+
+  insertObj.values = ctx[ctxKey]
+    .map(i => {
+      return i.values()
+    })
+    .reduce((prev, curr) => prev + ', ' + curr)
+
+  insertObj.columns = Object.keys(ctx[ctxKey][0].attributes)
+  insertObj.table = humps.decamelize(ctxKey)
+
+  return insertObj
+}
 
 module.exports = Projects

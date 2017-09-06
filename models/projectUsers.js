@@ -1,6 +1,7 @@
 const { attributes } = require('structure')
 const db = require('../db')
 const helpers = db.projects.pgp.helpers
+const utils = require('../utils')
 
 const ProjectUsers = attributes({
   id: {
@@ -23,12 +24,20 @@ const ProjectUsers = attributes({
     equal: ['lead', 'collaborator', 'admin']
   }
 })(class ProjectUser {
-  cs () {
-    return new helpers.ColumnSet(this.attributes, { table: 'project_users' })
+  base () {
+    return utils.pick(this, 'user_id', 'project_id', 'type')
   }
 
-  insert () {
-    return helpers.insert(this.attributes, this.cs())
+  cs () {
+    return new helpers.ColumnSet(this.base(), { table: 'project_users' })
+  }
+
+  sets () {
+    return helpers.sets(this.base(), this.cs())
+  }
+
+  values () {
+    return helpers.values(this.base(), this.cs())
   }
 })
 

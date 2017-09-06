@@ -14,6 +14,7 @@
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
     "express": "^4.15.4",
+    "humps": "^2.0.1",
     "pg-monitor": "^0.8.2",
     "pg-promise": "^6.5.1",
     "structure": "^1.2.1"

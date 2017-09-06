@@ -59,7 +59,7 @@ router.post('/', (req, res) => {
   res.status(200).json({
     keys: Object.keys(project.attributes),
     insert: project.insert(),
-    species: project.insertSpecies()
+    associativeTables: project.insertSpecies()
   })
 })
 
