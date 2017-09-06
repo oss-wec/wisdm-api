@@ -56,11 +56,18 @@ router.post('/', (req, res) => {
   console.log(req.body)
   const project = new models.Projects(req.body)
 
-  res.status(200).json({
-    keys: Object.keys(project.attributes),
-    insert: project.insert(),
-    associativeTables: project.insertSpecies()
-  })
+  project.create()
+    .then(data => res.status(200).json({ msg: 'successful', data }))
+    .catch(err => res.status(400).json({ err }))
+
+  // res.status(200).json({
+  //   // keys: Object.keys(project.attributes),
+  //   // base: project.base(),
+  //   // cs: project.cs(),
+  //   // values: project.values(),
+  //   // insert: project.insert(),
+  //   associativeTables: project.associativeInsertSql(88888)
+  // })
 })
 
 module.exports = router

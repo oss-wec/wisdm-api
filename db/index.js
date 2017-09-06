@@ -19,7 +19,7 @@ const initOptions = {
 const config = {
   host: 'localhost',
   port: 5432,
-  database: 'encounter-lcl',
+  database: 'wisdm',
   user: null,
   password: null
 }

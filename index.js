@@ -10,6 +10,7 @@ app.use(bodyParser.json())
 
 app.use('/elements', routes.elements)
 app.use('/projects', routes.projects)
+app.use('/users', routes.users)
 
 app.get('/', (req, res) => {
   res.status(200).json({ msg: 'API is listening' })

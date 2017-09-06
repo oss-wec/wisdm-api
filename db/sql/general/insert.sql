@@ -1,2 +1,2 @@
-INSERT INTO ${table} (${columns:csv})
+INSERT INTO ${table~} (${columns~})
 VALUES ${values:raw}

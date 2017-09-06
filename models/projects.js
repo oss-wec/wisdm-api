@@ -96,11 +96,11 @@ const Projects = attributes({
     integer: true,
     required: true
   },
-  time_frame: {
-    type: String,
-    required: true,
-    equal: ['years', 'months', 'days', 'weeks']
-  },
+  // time_frame: {
+  //   type: String,
+  //   required: true,
+  //   equal: ['years', 'months', 'days', 'weeks']
+  // },
   projectUsers: {
     type: Array,
     itemType: 'ProjectUsers'
@@ -126,8 +126,7 @@ const Projects = attributes({
 
   base () {
     return utils.pick(this,
-      'parent_id', 'type', 'proj_name', 'proj_desc', 'proj_start', 'proj_duration',
-      'time_frame')
+      'type', 'proj_name', 'proj_desc', 'proj_start', 'proj_duration')
   }
 
   cs () {
@@ -136,28 +135,42 @@ const Projects = attributes({
   }
 
   insert () {
-    return helpers.insert(this.base(), this.cs())
+    return helpers.insert(this.base(), this.cs()) + ' RETURNING *'
   }
 
-  insertSpecies (projectId) {
-    return {
-      speciesInsert: db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectSpecies')),
-      locInsert: db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectLocations')),
-      userInsert: db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectUsers'))
-    }
+  values () {
+    return helpers.values(this.base(), this.cs())
+  }
+
+  associativeInsertSql (projectId) {
+    return helpers.concat([
+      db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectSpecies', projectId)),
+      db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectLocations', projectId)),
+      db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectUsers', projectId))
+    ])
+  }
+
+  create () {
+    return db.tx(t => {
+      return t.one(this.insert())
+        .then(project => {
+          return t.none(this.associativeInsertSql(project.id))
+        })
+    })
   }
 })
 
-const mapInsert = (ctx, ctxKey) => {
+const mapInsert = (ctx, ctxKey, id) => {
   const insertObj = {}
 
   insertObj.values = ctx[ctxKey]
     .map(i => {
+      i.project_id = id
       return i.values()
     })
     .reduce((prev, curr) => prev + ', ' + curr)
 
-  insertObj.columns = Object.keys(ctx[ctxKey][0].attributes)
+  insertObj.columns = Object.keys(ctx[ctxKey][0].base())
   insertObj.table = humps.decamelize(ctxKey)
 
   return insertObj
