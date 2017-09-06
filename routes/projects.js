@@ -10,7 +10,36 @@ router.get('/', (req, res) => {
     proj_desc: 'description of this project is interesting',
     proj_start: '2017-01-01',
     proj_duration: 1,
-    time_frame: 'years'
+    time_frame: 'years',
+    projectUsers: [
+      {
+        user_id: 12,
+        project_id: 1,
+        type: 'lead'
+      }, {
+        user_id: 8,
+        project_id: 1,
+        type: 'lead'
+      }
+    ],
+    projectLocations: [
+      {
+        project_id: 1,
+        hunt_unit: '012'
+      }, {
+        project_id: 1,
+        hunt_unit: '013'
+      }
+    ],
+    projectSpecies: [
+      {
+        species_id: 1,
+        project_id: 1
+      }, {
+        species_id: 2,
+        project_id: 1
+      }
+    ]
   })
 
   models.Projects.all()
@@ -28,11 +57,9 @@ router.post('/', (req, res) => {
   const project = new models.Projects(req.body)
 
   res.status(200).json({
-    keys: project.noId(),
-    insert: project.insert()
-    // project: project.attributes,
-    // cs: project.cs(),
-    // insert: project.insert()
+    keys: Object.keys(project.attributes),
+    insert: project.insert(),
+    species: project.insertSpecies()
   })
 })
 
