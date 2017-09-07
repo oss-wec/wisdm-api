@@ -25,7 +25,7 @@ class Elements {
   }
 
   insert (data) {
-    const sqlInsert = this.pgp.helpers.insert(data, cs).toString() + ' RETURNING *'
+    const sqlInsert = this.pgp.helpers.insert(data, cs) + ' RETURNING *'
     return this.db.one(sqlInsert)
   }
 }
