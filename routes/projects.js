@@ -4,50 +4,10 @@ const router = Express.Router()
 const models = require('../models')
 
 router.get('/', (req, res) => {
-  const proj = new models.Projects({
-    type: 'project',
-    proj_name: 'Project AB135-X',
-    proj_desc: 'description of this project is interesting',
-    proj_start: '2017-01-01',
-    proj_duration: 1,
-    time_frame: 'years',
-    projectUsers: [
-      {
-        user_id: 12,
-        project_id: 1,
-        type: 'lead'
-      }, {
-        user_id: 8,
-        project_id: 1,
-        type: 'lead'
-      }
-    ],
-    projectLocations: [
-      {
-        project_id: 1,
-        hunt_unit: '012'
-      }, {
-        project_id: 1,
-        hunt_unit: '013'
-      }
-    ],
-    projectSpecies: [
-      {
-        species_id: 1,
-        project_id: 1
-      }, {
-        species_id: 2,
-        project_id: 1
-      }
-    ]
-  })
-
   models.Projects.all()
     .then(data => res.status(200).json({
-      data,
-      proj,
-      cs: proj.cs(),
-      insert: proj.insert()
+      msg: 'success',
+      data
     }))
     .catch(error => res.status(400).json({ error }))
 })
@@ -59,15 +19,6 @@ router.post('/', (req, res) => {
   project.create()
     .then(data => res.status(200).json({ msg: 'successful', data }))
     .catch(err => res.status(400).json({ err }))
-
-  // res.status(200).json({
-  //   // keys: Object.keys(project.attributes),
-  //   // base: project.base(),
-  //   // cs: project.cs(),
-  //   // values: project.values(),
-  //   // insert: project.insert(),
-  //   associativeTables: project.associativeInsertSql(88888)
-  // })
 })
 
 module.exports = router

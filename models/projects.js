@@ -126,7 +126,7 @@ const Projects = attributes({
 
   base () {
     return utils.pick(this,
-      'type', 'proj_name', 'proj_desc', 'proj_start', 'proj_duration')
+      'parent_id', 'type', 'proj_name', 'proj_desc', 'proj_start', 'proj_duration')
   }
 
   cs () {
