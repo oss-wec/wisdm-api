@@ -3,6 +3,12 @@ const router = Express.Router()
 const db = require('../db')
 const models = require('../models')
 
+router.get('/', (req, res) => {
+  models.Users.all()
+    .then(data => res.status(200).json({ msg: 'successful', data }))
+    .catch(err => res.status(400).json({ err }))
+})
+
 router.post('/', (req, res) => {
   const user = new models.Users(req.body)
 

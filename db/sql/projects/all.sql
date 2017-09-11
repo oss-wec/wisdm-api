@@ -3,10 +3,10 @@ WITH stages AS (
     s.proj_desc,
     s.proj_name,
     s.proj_start,
-    s.type
+    s.proj_type
   FROM projects p
     LEFT JOIN projects s ON p.id = s.parent_id
-  WHERE s.type = 'stage'
+  WHERE s.proj_type = 'stage'
 ),
 
 species AS (
@@ -49,7 +49,7 @@ srl AS (
     id,
     proj_name,
     proj_desc,
-    
+    proj_type,
     (
       SELECT to_jsonb(array_agg(to_jsonb(s)))
       FROM (
@@ -78,7 +78,7 @@ srl AS (
     ) AS Colabs
     
   FROM projects
-  WHERE projects.type = 'project'
+  WHERE projects.proj_type = 'project'
   ORDER BY projects.id
 )
 

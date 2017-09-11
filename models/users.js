@@ -20,6 +20,10 @@ const Users = attributes({
     required: true
   }
 })(class Users {
+  static all () {
+    return db.manyOrNone('SELECT * FROM users')
+  }
+
   cs () {
     return new helpers.ColumnSet(this.attributes, { table: 'users' })
   }

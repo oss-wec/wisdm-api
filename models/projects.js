@@ -73,9 +73,10 @@ const Projects = attributes({
   },
   parent_id: {
     type: Number,
-    integer: true
+    integer: true,
+    default: undefined
   },
-  type: {
+  proj_type: {
     type: String,
     required: true,
     equal: ['project', 'stage']
@@ -96,11 +97,11 @@ const Projects = attributes({
     integer: true,
     required: true
   },
-  // time_frame: {
-  //   type: String,
-  //   required: true,
-  //   equal: ['years', 'months', 'days', 'weeks']
-  // },
+  time_frame: {
+    type: String,
+    required: true,
+    equal: ['years', 'months', 'days', 'weeks']
+  },
   projectUsers: {
     type: Array,
     itemType: 'ProjectUsers'
@@ -126,7 +127,7 @@ const Projects = attributes({
 
   base () {
     return utils.pick(this,
-      'parent_id', 'type', 'proj_name', 'proj_desc', 'proj_start', 'proj_duration')
+      'parent_id', 'proj_type', 'proj_name', 'proj_desc', 'proj_start', 'proj_duration', 'time_frame')
   }
 
   cs () {
@@ -143,11 +144,17 @@ const Projects = attributes({
   }
 
   associativeInsertSql (projectId) {
-    return helpers.concat([
-      db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectSpecies', projectId)),
-      db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectLocations', projectId)),
-      db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectUsers', projectId))
-    ])
+    const species = this.projectSpecies
+      ? db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectSpecies', projectId))
+      : ''
+    const locations = this.projectLocations
+      ? db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectLocations', projectId))
+      : ''
+    const users = this.projectUsers
+      ? db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectUsers', projectId))
+      : ''
+
+    return helpers.concat([ species, locations, users ])
   }
 
   create () {
