@@ -25,7 +25,21 @@ const mapInsert = (ctx, ctxKey, id) => {
   insertObj.table = humps.decamelize(ctxKey)
 }
 
+const validate = (structure) => {
+  console.log(structure)
+  return new Promise((resolve, reject) => {
+    const { valid, errors } = structure.validate()
+    if (!valid) {
+      console.log(errors)
+      reject(errors)
+    } else {
+      resolve(structure)
+    }
+  })
+}
+
 module.exports = {
   pick,
-  mapInsert
+  mapInsert,
+  validate
 }

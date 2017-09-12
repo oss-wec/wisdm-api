@@ -50,6 +50,9 @@ srl AS (
     proj_name,
     proj_desc,
     proj_type,
+    proj_start,
+    proj_duration,
+    time_frame,
     (
       SELECT to_jsonb(array_agg(to_jsonb(s)))
       FROM (

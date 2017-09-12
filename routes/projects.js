@@ -2,6 +2,7 @@ const Express = require('express')
 const router = Express.Router()
 // const db = require('../db')
 const models = require('../models')
+const validate = require('../utils').validate
 
 router.get('/', (req, res) => {
   models.Projects.all()
@@ -16,7 +17,9 @@ router.post('/', (req, res) => {
   console.log(req.body)
   const project = new models.Projects(req.body)
 
-  project.create()
+  // project.create()
+  validate(project)
+    .then(project => project.create())
     .then(data => res.status(200).json({ msg: 'successful', data }))
     .catch(error => res.status(400).json({ error }))
 })
