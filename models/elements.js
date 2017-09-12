@@ -3,7 +3,7 @@ const db = require('../db')
 // const format = require('pg-promise').as.format
 // const helpers = require('pg-promise')().helpers
 
-const Element = attributes({
+const Elements = attributes({
   id: {
     type: Number,
     integer: true
@@ -30,4 +30,4 @@ const Element = attributes({
   }
 })
 
-module.exports = Element
+module.exports = Elements

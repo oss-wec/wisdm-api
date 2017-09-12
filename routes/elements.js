@@ -4,10 +4,6 @@ const db = require('../db')
 const models = require('../models')
 
 router.get('/', (req, res) => {
-  // console.log(Object.getOwnPropertyNames(db.elements.attr))
-  console.log(models.Element)
-
-  // db.elements.all()
   models.Element.all()
     .then(data => res.status(200).json({
       data: data,
@@ -17,12 +13,22 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  db.elements.insert({
-    animal_id: 1601,
-    species_id: 50
+  const body = new models.Devices(req.body)
+
+  res.status(200).json({
+    model: body,
+    cs: body.cs(),
+    sets: body.sets(),
+    values: body.values(),
+    insert: body.insert()
   })
-    .then(data => res.status(200).json(data))
-    .catch(error => res.status(400).json(error))
+
+  // db.elements.insert({
+  //   animal_id: 1601,
+  //   species_id: 50
+  // })
+  //   .then(data => res.status(200).json(data))
+  //   .catch(error => res.status(400).json(error))
 })
 
 module.exports = router
