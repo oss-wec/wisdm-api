@@ -49,6 +49,10 @@ const Events = attributes({
   Biometrics: {
     type: Array,
     itemType: 'Biometrics'
+  },
+  Injuries: {
+    type: Array,
+    itemType: 'Injuries'
   }
   // Samples: {
   //   type: Array,
@@ -78,7 +82,8 @@ const Events = attributes({
   // }
 }, {
   dynamics: {
-    Biometrics: () => require('./biometrics')
+    Biometrics: () => require('./biometrics'),
+    Injuries: () => require('./injuries')
   }
 })(class Events {
   base () {

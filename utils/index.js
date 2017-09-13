@@ -45,17 +45,39 @@ const validate = (structure) => {
 }
 
 const arrayInsert = (arr, id) => {
-  const insert = {}
+  return {
+    values: arr
+      .map(m => m.values(id))
+      .reduce((acc, cur) => `${acc}, ${cur}`),
+    columns: arr[0].cs().columns.map(m => m.name),
+    table: arr[0].cs().table.table
+  }
+}
 
-  insert.values = arr
-    .map(m => {
-      return m.values(id)
-    })
-    .reduce((acc, cur) => `${acc}, ${cur}`)
-  insert.columns = arr[0].cs().columns.map(m => m.name)
-  insert.table = arr[0].cs().table.table
+const batchInsert = (arr, id) => {
+  return {
+    values: arr.map(m => m.pg().values(id)).reduce((acc, cur) => `${acc}, ${cur}`),
+    columns: arr[0].pg().cs.columns.map(m => m.name),
+    table: arr[0].pg().cs.table.table
+  }
+}
 
-  return insert
+const pg = (ctx, table) => {
+  let cs = new helpers.ColumnSet(ctx.attributes, { table: table })
+  // FIXME: event_id needs to be ignored in sets and insert
+
+  return {
+    cs,
+    sets: () => helpers.sets(ctx, cs),
+    values: (id) => {
+      ctx.event_id = id
+      return helpers.values(ctx, cs)
+    },
+    insert: (id) => {
+      ctx.event_id = id
+      return helpers.insert(ctx, cs)
+    }
+  }
 }
 
 module.exports = {
@@ -63,5 +85,7 @@ module.exports = {
   pick,
   mapInsert,
   validate,
-  arrayInsert
+  arrayInsert,
+  batchInsert,
+  pg
 }

@@ -21,7 +21,12 @@ router.post('/', (req, res) => {
 
   res.status(200).json({
     model: body,
-    biometrics: format(sql.general.insert, utils.arrayInsert(body.Event.Biometrics, 12))
+    // biometrics: format(sql.general.insert, utils.arrayInsert(body.Event.Biometrics, 12)),
+    injuries: format(sql.general.insert, utils.batchInsert(body.Event.Injuries, 222)),
+    cs: body.Event.Injuries[0].pg().cs,
+    sets: body.Event.Injuries[0].pg().sets(),
+    values: body.Event.Injuries[0].pg().values(222),
+    insert: body.Event.Injuries[0].pg().insert(222)
   })
 
   // body.create()
