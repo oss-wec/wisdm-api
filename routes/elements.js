@@ -13,22 +13,16 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const body = new models.Devices(req.body)
+  const body = new models.Elements(req.body)
 
-  res.status(200).json({
-    model: body,
-    cs: body.cs(),
-    sets: body.sets(),
-    values: body.values(),
-    insert: body.insert()
-  })
-
-  // db.elements.insert({
-  //   animal_id: 1601,
-  //   species_id: 50
+  // res.status(200).json({
+  //   model: body,
+  //   insert: body.Events.insert(1)
   // })
-  //   .then(data => res.status(200).json(data))
-  //   .catch(error => res.status(400).json(error))
+
+  body.create()
+    .then(() => res.status(200).json({ msg: 'success' }))
+    .catch(error => res.status(400).json(error))
 })
 
 module.exports = router

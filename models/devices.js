@@ -27,7 +27,7 @@ const Devices = attributes({
 })(class Device {
   // TODO: static all method
   cs () {
-    return new helpers.ColumnSet(this.attributes, { table: 'devices' })
+    return new helpers.ColumnSet(this.attributes, { table: 'deployments' })
   }
 
   sets () {
