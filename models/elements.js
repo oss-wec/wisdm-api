@@ -33,7 +33,7 @@ const Elements = attributes({
     type: Array,
     itemType: 'Devices'
   },
-  Events: {
+  Event: {
     type: 'Events'
   }
 }, {

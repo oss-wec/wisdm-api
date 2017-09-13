@@ -45,11 +45,11 @@ const Events = attributes({
   },
   comments: {
     type: String
+  },
+  Biometrics: {
+    type: Array,
+    itemType: 'Biometrics'
   }
-  // Biometrics: {
-  //   type: Array,
-  //   itemType: 'Biometrics'
-  // },
   // Samples: {
   //   type: Array,
   //   itemType: 'Samples'
@@ -76,9 +76,13 @@ const Events = attributes({
   // Necropsy: {
   //   type: 'Necropsy'
   // }
+}, {
+  dynamics: {
+    Biometrics: () => require('./biometrics')
+  }
 })(class Events {
   base () {
-    return utils.pick(this, 
+    return utils.pick(this,
       'element_id', 'project_id', 'status', 'age', 'event_date', 'enc_method', 'enc_reason', 'x', 'y', 'comments'
     )
   }

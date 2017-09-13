@@ -44,9 +44,24 @@ const validate = (structure) => {
   })
 }
 
+const arrayInsert = (arr, id) => {
+  const insert = {}
+
+  insert.values = arr
+    .map(m => {
+      return m.values(id)
+    })
+    .reduce((acc, cur) => `${acc}, ${cur}`)
+  insert.columns = arr[0].cs().columns.map(m => m.name)
+  insert.table = arr[0].cs().table.table
+
+  return insert
+}
+
 module.exports = {
   upsert,
   pick,
   mapInsert,
-  validate
+  validate,
+  arrayInsert
 }
