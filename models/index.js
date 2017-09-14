@@ -7,7 +7,7 @@ fs.readdirSync('./models')
     fileName = fileName.charAt(0).toUpperCase() + fileName.slice(1)
 
     if (fileName !== 'Index') {
-      console.log(fileName)
+      // console.log(fileName)
       exports[fileName] = require(path.join(__dirname, file))
     }
   })
