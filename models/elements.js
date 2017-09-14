@@ -82,25 +82,48 @@ const Elements = attributes({
     // return helpers.insert(this.base(), this.cs()) + ' RETURNING *'
   }
 
+  sql () {
+    // const mod = ['Event.Biometrics', 'Event.Injuries', 'Event.Medications', 'Event.Samples', 'Event.LabIds', 'Event.Vitals']
+    // let out = []
+
+    // mod.forEach(i => {
+    //   let keys = i.split('.')
+    //   let data = this[keys[0]][keys[1]]
+
+    //   if (data) {
+    //     out.push(format(sql.general.insert, utils.batchInsert(data, 888)))
+    //   }
+    // })
+
+    // return helpers.concat(out)
+
+    return utils.eventInsert(this, 888)
+  }
+
   create () {
     return db.tx(t => {
       return t.one(this.insert())
         .then(element => {
           return t.one(this.Events.insert(element.id))
-            .then(encounter => {
-              if (!this.Marks && !this.Devices) return encounter
+            // .then(encounter => {
+            //   if (!this.Marks && !this.Devices) return encounter
 
-              let ids = { elementId: element.id, eventId: encounter.id }
+            //   let ids = { elementId: element.id, eventId: encounter.id }
 
-              let sql = helpers.concat([
-                utils.upsert(this.Marks, 'unq_mark_constraint', { element_id: ids.elementId }),
-                utils.upsert(this.Devices, 'unq_deployment_constraint', { element_id: ids.elementId })
-              ])
+            //   let sql = helpers.concat([
+            //     utils.upsert(this.Marks, 'unq_mark_constraint', { element_id: ids.elementId }),
+            //     utils.upsert(this.Devices, 'unq_deployment_constraint', { element_id: ids.elementId })
+            //     // utils.eventInsert(this, ids.eventId)
+            //   ])
 
-              return t.none(sql)
-            })
+            //   return t.none(sql)
+            // })
         })
     })
+  }
+
+  push () {
+    return db.one(this.insert())
   }
 })
 

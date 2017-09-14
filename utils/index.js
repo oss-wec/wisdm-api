@@ -1,6 +1,8 @@
 const name = require('pg-promise').as.name
 const helpers = require('pg-promise')().helpers
 const humps = require('humps')
+const format = require('pg-promise').as.format
+const sql = require('../db/sql')
 
 const upsert = (ctx, conflict, id) => {
   if (!ctx) return ''
@@ -80,6 +82,24 @@ const pg = (ctx, table) => {
   }
 }
 
+const eventInsert = (ctx, id) => {
+  const tables = ['Biometrics', 'Injuries', 'Medications', 'Samples', 'LabIds', 'Vitals']
+  const arrInsert = []
+
+  tables.forEach(i => {
+    let data = ctx.Event[i]
+
+    if (data) {
+      arrInsert.push(format(sql.general.insert, batchInsert(data, id)))
+    }
+  })
+
+  if (ctx.Event.Mortality) arrInsert.push(ctx.Event.Mortality.pg().insert(id))
+  if (ctx.Event.Necropsy) arrInsert.push(ctx.Event.Necropsy.pg().insert(id))
+
+  return helpers.concat(arrInsert)
+}
+
 module.exports = {
   upsert,
   pick,
@@ -87,5 +107,6 @@ module.exports = {
   validate,
   arrayInsert,
   batchInsert,
-  pg
+  pg,
+  eventInsert
 }
