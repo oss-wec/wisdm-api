@@ -82,7 +82,7 @@ const pg = (ctx, table) => {
   }
 }
 
-const eventInsert = (ctx, id) => {
+const eventInsert = (ctx, ids) => {
   const tables = ['Biometrics', 'Injuries', 'Medications', 'Samples', 'LabIds', 'Vitals']
   const arrInsert = []
 
@@ -90,12 +90,14 @@ const eventInsert = (ctx, id) => {
     let data = ctx.Event[i]
 
     if (data) {
-      arrInsert.push(format(sql.general.insert, batchInsert(data, id)))
+      arrInsert.push(format(sql.general.insert, batchInsert(data, ids.eventId)))
     }
   })
 
-  if (ctx.Event.Mortality) arrInsert.push(ctx.Event.Mortality.pg().insert(id))
-  if (ctx.Event.Necropsy) arrInsert.push(ctx.Event.Necropsy.pg().insert(id))
+  if (ctx.Marks) arrInsert.push(upsert(ctx.Marks, 'unq_mark_constraint', { element_id: ids.elementId }))
+  if (ctx.Marks) arrInsert.push(upsert(ctx.Devices, 'unq_deployment_constraint', { element_id: ids.elementId }))
+  if (ctx.Event.Mortality) arrInsert.push(ctx.Event.Mortality.pg().insert(ids.eventId))
+  if (ctx.Event.Necropsy) arrInsert.push(ctx.Event.Necropsy.pg().insert(ids.eventId))
 
   return helpers.concat(arrInsert)
 }

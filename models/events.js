@@ -106,8 +106,9 @@ const Events = attributes({
     return helpers.values(this.base(), this.cs())
   }
 
-  insert (encounterId) {
-    console.log(encounterId)
+  insert (elementId) {
+    console.log(elementId)
+    this.element_id = elementId
     return helpers.insert(this, this.cs()) + ' RETURNING *'
   }
 })

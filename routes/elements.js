@@ -31,8 +31,8 @@ router.post('/', (req, res) => {
   //   // mortality: body.Event.Mortality.pg().insert(222)
   // })
 
-  body.push()
-    .then(() => res.status(200).json({ msg: 'success' }))
+  body.create()
+    .then(data => res.status(200).json({ msg: 'success', data }))
     .catch(error => res.status(400).json(error))
 })
 

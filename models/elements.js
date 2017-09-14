@@ -97,33 +97,30 @@ const Elements = attributes({
 
     // return helpers.concat(out)
 
-    return utils.eventInsert(this, 888)
+    return utils.eventInsert(this, { elementId: 111, eventId: 222 })
   }
 
   create () {
     return db.tx(t => {
       return t.one(this.insert())
         .then(element => {
-          return t.one(this.Events.insert(element.id))
-            // .then(encounter => {
-            //   if (!this.Marks && !this.Devices) return encounter
-
-            //   let ids = { elementId: element.id, eventId: encounter.id }
-
-            //   let sql = helpers.concat([
-            //     utils.upsert(this.Marks, 'unq_mark_constraint', { element_id: ids.elementId }),
-            //     utils.upsert(this.Devices, 'unq_deployment_constraint', { element_id: ids.elementId })
-            //     // utils.eventInsert(this, ids.eventId)
-            //   ])
-
-            //   return t.none(sql)
-            // })
+          return t.one(this.Event.insert(element.id))
+            .then(event => {
+              return t.none(utils.eventInsert(this, { elementId: element.id, eventId: event.id }))
+            })
         })
     })
   }
 
   push () {
-    return db.one(this.insert())
+    // return db.one(this.insert())
+
+    return db.tx(t => {
+      return t.one(this.insert())
+        .then(element => {
+          return t.one(this.Event.insert(element.id))
+        })
+    })
   }
 })
 
