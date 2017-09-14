@@ -53,37 +53,39 @@ const Events = attributes({
   Injuries: {
     type: Array,
     itemType: 'Injuries'
+  },
+  Samples: {
+    type: Array,
+    itemType: 'Samples'
+  },
+  LabIds: {
+    type: Array,
+    itemType: 'LabIds'
+  },
+  Medications: {
+    type: Array,
+    itemType: 'Medications'
+  },
+  Vitals: {
+    type: Array,
+    itemType: 'Vitals'
+  },
+  Mortality: {
+    type: 'Mortality'
+  },
+  Necropsy: {
+    type: 'Necropsy'
   }
-  // Samples: {
-  //   type: Array,
-  //   itemType: 'Samples'
-  // },
-  // LabIds: {
-  //   type: Array,
-  //   itemType: 'LabIds'
-  // },
-  // Medications: {
-  //   type: Array,
-  //   itemType: 'Medications'
-  // },
-  // Vitals: {
-  //   type: Array,
-  //   itemType: 'Vitals'
-  // },
-  // Injuries: {
-  //   type: Array,
-  //   itemType: 'Injuries'
-  // },
-  // Mortality: {
-  //   type: 'Mortality'
-  // },
-  // Necropsy: {
-  //   type: 'Necropsy'
-  // }
 }, {
   dynamics: {
     Biometrics: () => require('./biometrics'),
-    Injuries: () => require('./injuries')
+    Injuries: () => require('./injuries'),
+    Medications: () => require('./medications'),
+    Samples: () => require('./samples'),
+    LabIds: () => require('./labids'),
+    Vitals: () => require('./vitals'),
+    Necropsy: () => require('./necropsies'),
+    Mortality: () => require('./mortalities')
   }
 })(class Events {
   base () {

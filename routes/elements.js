@@ -21,12 +21,14 @@ router.post('/', (req, res) => {
 
   res.status(200).json({
     model: body,
-    // biometrics: format(sql.general.insert, utils.arrayInsert(body.Event.Biometrics, 12)),
+    biometrics: format(sql.general.insert, utils.batchInsert(body.Event.Biometrics, 222)),
     injuries: format(sql.general.insert, utils.batchInsert(body.Event.Injuries, 222)),
-    cs: body.Event.Injuries[0].pg().cs,
-    sets: body.Event.Injuries[0].pg().sets(),
-    values: body.Event.Injuries[0].pg().values(222),
-    insert: body.Event.Injuries[0].pg().insert(222)
+    medications: format(sql.general.insert, utils.batchInsert(body.Event.Medications, 222)),
+    samples: format(sql.general.insert, utils.batchInsert(body.Event.Samples, 222)),
+    labIds: format(sql.general.insert, utils.batchInsert(body.Event.LabIds, 222)), // TODO: upsert labids
+    vitals: format(sql.general.insert, utils.batchInsert(body.Event.Vitals, 222)),
+    necropsy: body.Event.Necropsy.pg().insert(222),
+    mortality: body.Event.Mortality.pg().insert(222)
   })
 
   // body.create()

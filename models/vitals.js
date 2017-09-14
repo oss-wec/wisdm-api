@@ -1,7 +1,7 @@
 const { attributes } = require('structure')
 const utils = require('../utils')
 
-const Biometrics = attributes({
+const Vitals = attributes({
   event_id: {
     type: Number,
     integer: true
@@ -14,18 +14,20 @@ const Biometrics = attributes({
     type: Number,
     required: true
   },
-  units: {
-    type: String
+  time_rec: {
+    type: String,
+    required: true
+  },
+  interval: {
+    type: Number
   },
   notes: {
     type: String
   }
-})(class Biometrics {
-  // TODO: static getAll method
-  // TODO: static findById method
+})(class Vitals {
   pg () {
-    return utils.pg(this, 'biometrics')
+    return utils.pg(this, 'vitals')
   }
 })
 
-module.exports = Biometrics
+module.exports = Vitals
