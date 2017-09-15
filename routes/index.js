@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-fs.readdirSync('./routes')
+fs.readdirSync(path.join(__dirname))
   .forEach(file => {
     let fileName = path.parse(file).name
 
