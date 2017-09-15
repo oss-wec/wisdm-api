@@ -78,8 +78,7 @@ const ProjectUsers = attributes({
   },
   project_id: {
     type: Number,
-    integer: true,
-    required: true
+    integer: true
   },
   type: {
     type: String,

@@ -38,10 +38,12 @@ const Events = attributes({
     default: null
   },
   x: {
-    type: Number
+    type: Number,
+    required: true
   },
   y: {
-    type: Number
+    type: Number,
+    required: true
   },
   comments: {
     type: String

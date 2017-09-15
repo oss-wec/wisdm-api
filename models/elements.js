@@ -70,11 +70,11 @@ const Elements = attributes({
       VALUES ($/animal_id/, $/species_id/, $/sex/)
       ON CONFLICT(animal_id) DO UPDATE
       SET animal_id = elements.animal_id WHERE FALSE
-      RETURNING elements.id
+      RETURNING elements.id, elements.animal_id
       )
-      SELECT id FROM ins
+      SELECT id, animal_id FROM ins
       UNION ALL
-      SELECT id FROM elements
+      SELECT id, animal_id FROM elements
       WHERE animal_id = $/animal_id/
       LIMIT 1;
     `
@@ -106,7 +106,11 @@ const Elements = attributes({
         .then(element => {
           return t.one(this.Event.insert(element.id))
             .then(event => {
-              return t.none(utils.eventInsert(this, { elementId: element.id, eventId: event.id }))
+              if (!this.Marks && !this.Devices && !this.Event.Biometrics && !this.Event.Injuries && !this.Event.LabIds && !this.Event.Medications && !this.Event.Mortality && !this.Event.Necropsy && !this.Event.Samples && !this.Event.Vitals) {
+                return { element, event }
+              } else {
+                return t.one(utils.eventInsert(this, { elementId: element.id, eventId: event.id }))
+              }
             })
         })
     })

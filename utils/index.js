@@ -98,6 +98,7 @@ const eventInsert = (ctx, ids) => {
   if (ctx.Marks) arrInsert.push(upsert(ctx.Devices, 'unq_deployment_constraint', { element_id: ids.elementId }))
   if (ctx.Event.Mortality) arrInsert.push(ctx.Event.Mortality.pg().insert(ids.eventId))
   if (ctx.Event.Necropsy) arrInsert.push(ctx.Event.Necropsy.pg().insert(ids.eventId))
+  arrInsert.push('SELECT species.common_name, elements.animal_id FROM elements INNER JOIN species ON elements.species_id = species.id LIMIT 1')
 
   return helpers.concat(arrInsert)
 }
