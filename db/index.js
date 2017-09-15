@@ -9,6 +9,8 @@ const repos = {
   general: require('./repos/general')
 }
 
+console.log(config)
+
 const initOptions = {
   promiseLib: promise,
   extend: (obj, dc) => {
