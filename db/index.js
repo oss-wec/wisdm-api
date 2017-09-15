@@ -1,6 +1,8 @@
 'use strict'
 
 const promise = require('bluebird')
+const env = process.env.NODE_ENV
+const config = require('../config/database.json')[env]
 const repos = {
   elements: require('./repos/elements'),
   projects: require('./repos/projects'),
@@ -16,13 +18,13 @@ const initOptions = {
   }
 }
 
-const config = {
-  host: 'localhost',
-  port: 5432,
-  database: 'wisdm',
-  user: null,
-  password: null
-}
+// const config = {
+//   host: 'localhost',
+//   port: 5432,
+//   database: 'wisdm',
+//   user: null,
+//   password: null
+// }
 
 const pgp = require('pg-promise')(initOptions)
 const db = pgp(config)

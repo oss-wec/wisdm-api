@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "remote": "NODE_ENV=remote nodemon index.js",
+    "production": "NODE_ENV=production node index.js"
   },
   "author": "Mitchell Gritts <mitchellgritts@gmail.com>",
   "license": "MIT",
