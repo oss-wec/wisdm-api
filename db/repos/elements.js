@@ -24,6 +24,10 @@ class Elements {
     return this.db.many(sql.all)
   }
 
+  findById (id) {
+    return this.db.any(sql.findById, { id })
+  }
+
   insert (data) {
     const sqlInsert = this.pgp.helpers.insert(data, cs) + ' RETURNING *'
     return this.db.one(sqlInsert)

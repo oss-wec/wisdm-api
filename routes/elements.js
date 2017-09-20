@@ -16,6 +16,12 @@ router.get('/', (req, res) => {
     .catch(error => res.status(400).json(error))
 })
 
+router.get('/:id', (req, res) => {
+  models.Elements.findById(req.params.id)
+    .then(data => res.status(200).json({ data }))
+    .catch(error => res.status(400).json(error))
+})
+
 router.post('/', (req, res) => {
   // console.log(req.body)
   const encounter = new models.Elements(req.body)

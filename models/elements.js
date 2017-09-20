@@ -47,6 +47,10 @@ const Elements = attributes({
     return db.elements.all()
   }
 
+  static findById (id) {
+    return db.elements.findById(id)
+  }
+
   base () {
     return utils.pick(this, 'animal_id', 'species_id', 'sex')
   }
