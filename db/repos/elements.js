@@ -25,7 +25,7 @@ class Elements {
   }
 
   findById (id) {
-    return this.db.any(sql.findById, { id })
+    return this.db.oneOrNone(sql.findById, { id })
   }
 
   insert (data) {
