@@ -45,6 +45,27 @@ const Events = attributes({
     type: Number,
     required: true
   },
+  location: {
+    type: String
+  },
+  rel_x: {
+    type: Number
+  },
+  rel_y: {
+    type: Number
+  },
+  rel_location: {
+    type: String
+  },
+  capture_time: {
+    type: String
+  },
+  start_time: {
+    type: String
+  },
+  end_time: {
+    type: String
+  },
   comments: {
     type: String
   },
@@ -92,7 +113,7 @@ const Events = attributes({
 })(class Events {
   base () {
     return utils.pick(this,
-      'element_id', 'project_id', 'status', 'age', 'event_date', 'enc_method', 'enc_reason', 'x', 'y', 'comments'
+      'element_id', 'project_id', 'status', 'age', 'event_date', 'enc_method', 'enc_reason', 'x', 'y', 'comments', 'location', 'rel_x', 'rel_y', 'rel_location', 'capture_time', 'start_time', 'end_time'
     )
   }
 
