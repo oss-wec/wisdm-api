@@ -11,19 +11,24 @@ const Medications = attributes({
     required: true
   },
   med_time: {
-    type: String
+    type: String,
+    empty: true
   },
   med_dose: {
-    type: Number
+    type: Number,
+    empty: true
   },
   med_unit: {
-    type: String
+    type: String,
+    empty: true
   },
   med_method: {
-    type: String
+    type: String,
+    empty: true
   },
   med_notes: {
-    type: String
+    type: String,
+    empty: true
   }
 })(class Medications {
   pg () {

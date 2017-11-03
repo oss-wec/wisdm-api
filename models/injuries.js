@@ -6,11 +6,26 @@ const Injuries = attributes({
     type: Number,
     integer: true
   },
-  injury_side: String,
-  injury_location: String,
-  injury_type: String,
-  injury_description: String,
-  injury_treatment: String
+  injury_side: {
+    type: String,
+    empty: true
+  },
+  injury_location: {
+    type: String,
+    empty: true
+  },
+  injury_type: {
+    type: String,
+    empty: true
+  },
+  injury_description: {
+    type: String,
+    empty: true
+  },
+  injury_treatment: {
+    type: String,
+    empty: true
+  }
 })(class Injuries {
   pg () {
     return utils.pg(this, 'injuries')

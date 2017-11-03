@@ -46,28 +46,36 @@ const Events = attributes({
     required: true
   },
   location: {
-    type: String
+    type: String,
+    empty: true
   },
   rel_x: {
-    type: Number
+    type: Number,
+    empty: true
   },
   rel_y: {
-    type: Number
+    type: Number,
+    empty: true
   },
   rel_location: {
-    type: String
+    type: String,
+    empty: true
   },
   capture_time: {
-    type: String
+    type: String,
+    empty: true
   },
   start_time: {
-    type: String
+    type: String,
+    empty: true
   },
   end_time: {
-    type: String
+    type: String,
+    empty: true
   },
   comments: {
-    type: String
+    type: String,
+    empty: true
   },
   Biometrics: {
     type: Array,

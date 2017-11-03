@@ -16,20 +16,24 @@ const Marks = attributes({
     required: true
   },
   mark_color: {
-    type: String
+    type: String,
+    empty: true
   },
   mark_location: {
     type: String,
     required: true
   },
   date_given: {
-    type: Date
+    type: Date,
+    empty: true
   },
   notes: {
-    type: String
+    type: String,
+    empty: true
   },
   date_removed: {
-    type: Date
+    type: Date,
+    empty: true
   }
 })(class Marks {
   // TODO: static all method

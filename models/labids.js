@@ -8,7 +8,7 @@ const LabIds = attributes({
   },
   lab_id: {
     type: String,
-    required: true
+    empty: true
   }
 })(class LabIds {
   pg () {

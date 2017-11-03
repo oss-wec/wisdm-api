@@ -7,13 +7,16 @@ const Mortalities = attributes({
     integer: true
   },
   investigator: {
-    type: String
+    type: String,
+    empty: true
   },
   cause_of_death: {
-    type: String
+    type: String,
+    empty: true
   },
   certainty_of_cause: {
-    type: Number
+    type: Number,
+    empty: true
   },
   carcass_age: {
     type: Number,
@@ -21,19 +24,24 @@ const Mortalities = attributes({
   },
   femur_index: {
     type: Number,
-    integer: true
+    integer: true,
+    empty: true
   },
   gross_diagnoses: {
-    type: String
+    type: String,
+    empty: true
   },
   histological_diagnoses: {
-    type: String
+    type: String,
+    empty: true
   },
   description: {
-    type: String
+    type: String,
+    empty: true
   },
   mort_date: {
-    type: Date
+    type: Date,
+    empty: true
   }
 })(class Mortalities {
   pg () {

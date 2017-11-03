@@ -7,49 +7,64 @@ const Necropsies = attributes({
     integer: true
   },
   necropsy_date: {
-    type: Date
+    type: Date,
+    empty: true
   },
   general_condition: {
-    type: String
+    type: String,
+    empty: true
   },
   integument: {
-    type: String
+    type: String,
+    empty: true
   },
   musculoskeletal: {
-    type: String
+    type: String,
+    empty: true
   },
   body_cavities: {
-    type: String
+    type: String,
+    empty: true
   },
   hemolymphatic: {
-    type: String
+    type: String,
+    empty: true
   },
   respiratory: {
-    type: String
+    type: String,
+    empty: true
   },
   cardiovascular: {
-    type: String
+    type: String,
+    empty: true
   },
   digestive: {
-    type: String
+    type: String,
+    empty: true
   },
   urinary: {
-    type: String
+    type: String,
+    empty: true
   },
   reproductive: {
-    type: String
+    type: String,
+    empty: true
   },
   endocrine: {
-    type: String
+    type: String,
+    empty: true
   },
   nervous: {
-    type: String
+    type: String,
+    empty: true
   },
   sensory: {
-    type: String
+    type: String,
+    empty: true
   },
   studies: {
-    type: String
+    type: String,
+    empty: true
   }
 })(class Necropsies {
   pg () {

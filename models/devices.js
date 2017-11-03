@@ -19,10 +19,12 @@ const Devices = attributes({
     required: true
   },
   inservice: {
-    type: Date
+    type: Date,
+    empty: true
   },
   outservice: {
-    type: Date
+    type: Date,
+    empty: true
   }
 })(class Device {
   // TODO: static all method

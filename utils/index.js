@@ -34,7 +34,7 @@ const mapInsert = (ctx, ctxKey, id) => {
 }
 
 const validate = (structure) => {
-  console.log(structure)
+  console.log(structure.toJSON())
   return new Promise((resolve, reject) => {
     const { valid, errors } = structure.validate()
     if (!valid) {

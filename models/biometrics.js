@@ -15,10 +15,12 @@ const Biometrics = attributes({
     required: true
   },
   units: {
-    type: String
+    type: String,
+    empty: true
   },
   notes: {
-    type: String
+    type: String,
+    empty: true
   }
 })(class Biometrics {
   // TODO: static getAll method

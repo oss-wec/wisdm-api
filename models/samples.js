@@ -11,13 +11,16 @@ const Samples = attributes({
     required: true
   },
   destination: {
-    type: String
+    type: String,
+    empty: true
   },
   test: {
-    type: String
+    type: String,
+    empty: true
   },
   notes: {
-    type: String
+    type: String,
+    empty: true
   }
 })(class Samples {
   pg () {

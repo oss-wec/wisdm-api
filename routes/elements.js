@@ -23,7 +23,6 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  // console.log(req.body)
   const encounter = new models.Elements(req.body)
 
   validate(encounter)

@@ -19,10 +19,12 @@ const Vitals = attributes({
     required: true
   },
   interval: {
-    type: Number
+    type: Number,
+    empty: true
   },
   notes: {
-    type: String
+    type: String,
+    empty: true
   }
 })(class Vitals {
   pg () {
