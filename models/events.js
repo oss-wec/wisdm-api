@@ -17,6 +17,14 @@ const Events = attributes({
     required: true,
     equal: ['alive', 'mortality', 'harvest', 'unk']
   },
+  reencounter: {
+    type: Boolean,
+    required: true
+  },
+  relocated: {
+    type: Boolean,
+    required: true
+  },
   age: {
     type: String,
     default: null
@@ -121,7 +129,9 @@ const Events = attributes({
 })(class Events {
   base () {
     return utils.pick(this,
-      'element_id', 'project_id', 'status', 'age', 'event_date', 'enc_method', 'enc_reason', 'x', 'y', 'comments', 'location', 'rel_x', 'rel_y', 'rel_location', 'capture_time', 'start_time', 'end_time'
+      'element_id', 'project_id', 'status', 'age', 'event_date', 'enc_method', 'enc_reason', 'x',
+      'y', 'comments', 'location', 'rel_x', 'rel_y', 'rel_location', 'capture_time', 'start_time', 
+      'end_time', 'reencounter', 'relocated'
     )
   }
 
