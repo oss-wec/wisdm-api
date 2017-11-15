@@ -1,6 +1,6 @@
 {
   "name": "wisdm-api",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "an api to access wildlife information databases",
   "main": "index.js",
   "scripts": {
