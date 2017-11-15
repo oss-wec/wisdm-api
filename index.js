@@ -20,5 +20,6 @@ app.get('/', (req, res) => {
 const port = 3000
 
 app.listen(port, () => {
+  // console.log('API listening on port ' + port + ' NODE_ENV=' + process.env.NODE_ENV + ' : TZ - ' + process.env.TZ)
   console.log('API listening on port ' + port + ' NODE_ENV=' + process.env.NODE_ENV)
 })
