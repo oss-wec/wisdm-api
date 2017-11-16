@@ -39,7 +39,7 @@ FROM elements
   INNER JOIN species ON elements.species_id = species.id
   LEFT JOIN events ON elements.id = events.element_id
   LEFT JOIN projects ON events.project_id = projects.id
-ORDER BY date DESC, ndow_id
+ORDER BY date_utc DESC, ndow_id
 LIMIT 250;
 
 -- WITH m AS (
