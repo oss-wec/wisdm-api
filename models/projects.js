@@ -66,57 +66,10 @@ const ProjectLocations = attributes({
   }
 })
 
-const ProjectUsers = attributes({
-  id: {
-    type: Number,
-    integer: true
-  },
-  user_id: {
-    type: Number,
-    integer: true,
-    required: true
-  },
-  project_id: {
-    type: Number,
-    integer: true
-  },
-  type: {
-    type: String,
-    required: true,
-    equal: ['lead', 'collaborator', 'admin']
-  }
-})(class ProjectUser {
-  base () {
-    return utils.pick(this, 'user_id', 'project_id', 'type')
-  }
-
-  cs () {
-    return new helpers.ColumnSet(this.base(), { table: 'project_users' })
-  }
-
-  sets () {
-    return helpers.sets(this.base(), this.cs())
-  }
-
-  values () {
-    return helpers.values(this.base(), this.cs())
-  }
-})
-
 const Projects = attributes({
   id: {
     type: Number,
     integer: true
-  },
-  parent_id: {
-    type: Number,
-    integer: true,
-    default: undefined
-  },
-  proj_type: {
-    type: String,
-    required: true,
-    equal: ['project', 'stage']
   },
   proj_name: {
     type: String,
@@ -129,20 +82,6 @@ const Projects = attributes({
     type: Date,
     required: true
   },
-  proj_duration: {
-    type: Number,
-    integer: true,
-    required: true
-  },
-  time_frame: {
-    type: String,
-    required: true,
-    equal: ['years', 'months', 'days', 'weeks']
-  },
-  projectUsers: {
-    type: Array,
-    itemType: 'ProjectUsers'
-  },
   projectSpecies: {
     type: Array,
     itemType: 'ProjectSpecies'
@@ -153,7 +92,6 @@ const Projects = attributes({
   }
 }, {
   dynamics: {
-    ProjectUsers: () => ProjectUsers,
     ProjectSpecies: () => ProjectSpecies,
     ProjectLocations: () => ProjectLocations
   }
@@ -164,7 +102,7 @@ const Projects = attributes({
 
   base () {
     return utils.pick(this,
-      'parent_id', 'proj_type', 'proj_name', 'proj_desc', 'proj_start', 'proj_duration', 'time_frame')
+      'proj_name', 'proj_desc', 'proj_start')
   }
 
   cs () {
@@ -187,11 +125,8 @@ const Projects = attributes({
     const locations = this.projectLocations
       ? db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectLocations', projectId))
       : ''
-    const users = this.projectUsers
-      ? db.general.pgp.as.format(sql.general.insert, mapInsert(this, 'projectUsers', projectId))
-      : ''
 
-    return helpers.concat([ species, locations, users ])
+    return helpers.concat([ species, locations ])
   }
 
   create () {
