@@ -23,12 +23,12 @@ srl AS (
     proj_desc,
     proj_start,
     (
-      SELECT to_jsonb(array_agg(to_jsonb(species)))
+      SELECT (array_agg(to_jsonb(species.common_name)))
       FROM species
       WHERE id = projects.id
     ) AS Species,
     (
-      SELECT to_jsonb(array_agg(to_jsonb(hu)))
+      SELECT (array_agg(to_jsonb(hu.hunt_unit)))
       FROM hu
       WHERE id = projects.id
     ) AS Locations

@@ -12,21 +12,21 @@
   "author": "Mitchell Gritts <mitchellgritts@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "bluebird": "^3.5.0",
-    "body-parser": "^1.18.1",
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
     "cors": "^2.8.4",
-    "express": "^4.15.4",
+    "express": "^4.16.2",
     "humps": "^2.0.1",
-    "pg-monitor": "^0.8.2",
-    "pg-promise": "^6.5.4",
+    "pg-monitor": "^0.8.3",
+    "pg-promise": "^6.10.3",
     "structure": "^1.2.1"
   },
   "devDependencies": {
-    "eslint": "^4.6.1",
+    "eslint": "^4.11.0",
     "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1"
   }
 }

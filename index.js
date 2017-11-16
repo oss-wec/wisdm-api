@@ -5,6 +5,8 @@ const bodyParser = require('body-parser')
 const app = express()
 const routes = require('./routes')
 
+process.env.TZ = 'UTC'
+
 app.use(cors())
 app.use(bodyParser.json())
 
@@ -20,6 +22,6 @@ app.get('/', (req, res) => {
 const port = 3000
 
 app.listen(port, () => {
-  // console.log('API listening on port ' + port + ' NODE_ENV=' + process.env.NODE_ENV + ' : TZ - ' + process.env.TZ)
-  console.log('API listening on port ' + port + ' NODE_ENV=' + process.env.NODE_ENV)
+  console.log('API listening on port ' + port + ' NODE_ENV=' + process.env.NODE_ENV + ' : TZ - ' + process.env.TZ)
+  // console.log('API listening on port ' + port + ' NODE_ENV=' + process.env.NODE_ENV)
 })
