@@ -21,7 +21,7 @@ class Elements {
   }
 
   all () {
-    return this.db.many(sql.all)
+    return this.db.manyOrNone(sql.all)
   }
 
   findById (id) {

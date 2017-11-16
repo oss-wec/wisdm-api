@@ -10,8 +10,8 @@ const validate = require('../utils').validate
 router.get('/', (req, res) => {
   models.Elements.all()
     .then(data => res.status(200).json({
-      data: data,
-      cs: db.elements.cs
+      msg: 'success',
+      data: data
     }))
     .catch(error => res.status(400).json(error))
 })
