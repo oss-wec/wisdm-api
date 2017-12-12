@@ -11,7 +11,7 @@ const upsert = (ctx, conflict, id) => {
   return helpers.insert(ctx, ctx[0].cs()) +
     ' ON CONFLICT ON CONSTRAINT ' + conflict + ' DO UPDATE SET ' +
     ctx[0].cs().columns.map(m => {
-      let col = name(m.name)
+      let col = m.escapedName
       return col + '= EXCLUDED.' + col
     }).join()
 }
